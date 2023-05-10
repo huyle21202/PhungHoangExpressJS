@@ -1,4 +1,6 @@
-export class Dto<T> {
+import {Dto} from "../services";
+
+export class Fto<T> {
     public readonly code: string;
     public data: T | null | undefined;
     public message: string | null | undefined;
@@ -13,7 +15,11 @@ export class Dto<T> {
         return this.code === '';
     }
 
-    static success<T>(data?: T | null | undefined): Dto<T> {
-        return new Dto<T>('','', data);
+    static success<T>(data?: T | null | undefined): Fto<T> {
+        return new Fto<T>('','', data);
+    }
+
+    static from<T,D>(dto: Dto<D>): Fto<T> {
+        return new Fto<T>(dto.code, dto.message, dto.data);
     }
 }

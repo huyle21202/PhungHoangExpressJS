@@ -1,11 +1,11 @@
 import express from "express";
-const auth = require('../services/auth');
+import {LoginWithPhoneNumberAndPasswordFacade} from "../facades";
 const router = express.Router();
 
 /* GET quotes listing. */
 router.post('/login', async function(req, res, next) {
     try {
-        res.json(await auth.login("", ""));
+        res.json(await LoginWithPhoneNumberAndPasswordFacade.login("", ""));
     } catch (err) {
         res.status(500).json({'message': ""});
     }
