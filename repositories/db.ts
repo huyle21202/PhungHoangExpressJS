@@ -29,12 +29,12 @@ export class DB {
         const {rows, fields} = await pool.query(query);
         Logger.log(() => [`DB.insert `, query, rows, fields]);
 
-        return rows;
+        return !!rows && rows.length > 0 ? rows[0]: null;
     }
     static async update(query: any): Promise<any> {
         const {rows, fields} = await pool.query(query);
         Logger.log(() => [`DB.update `, query, rows, fields]);
 
-        return rows;
+        return !!rows && rows.length > 0 ? rows[0]: null;
     }
 }
