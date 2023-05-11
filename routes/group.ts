@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.get('/', async function(req, res, next) {
     try {
-        res.json(await UpdateGroupFacade.update(2, "Đèn Pha 2", 1));
+        res.json(await UpdateGroupFacade.update(-1, "Đèn Pha 2", 1));
     } catch (err) {
         res.status(500).json(err);
     }

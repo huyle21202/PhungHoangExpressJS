@@ -8,4 +8,8 @@ export class ProductService {
         const newProduct : ProductEntity | null = await ProductRepo.createNewProduct(code, name, otherName, groupId, brandId, price, image);
         return Dto.success(newProduct);
     }
+    static async getProducts(status: number, offset: number) : Promise<Dto<Product[]>>{
+        const newProduct : ProductEntity[] = await ProductRepo.getProducts(status, offset);
+        return Dto.success(newProduct);
+    }
 }

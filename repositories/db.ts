@@ -12,6 +12,7 @@ const pool = new Pool(config.db);
  * @see https://node-postgres.com/features/pooling#single-query
  */
 export class DB {
+    static readonly PAGING: number = 20;
     static async first(query: string, params: any): Promise<any | null> {
         const entities: any[] = await DB.query(query, params);
         const entity : any | null = entities.length > 0 ? entities[0] : null;
@@ -20,6 +21,13 @@ export class DB {
     }
     static async query(query: string, params: any): Promise<any[]> {
         const {rows, fields} = await pool.query(query, params);
+        if (!rows) {
+            return [];
+        }
+        return rows;
+    }
+    static async find(query: any): Promise<any[]> {
+        const {rows, fields} = await pool.query(query);
         if (!rows) {
             return [];
         }
