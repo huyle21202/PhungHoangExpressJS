@@ -6,10 +6,10 @@ exports.up = (pgm) => {
     pgm.createTable('users', {
         id: 'id',
         name: {type: 'varchar(100)', notNull: true},
-        phone: {type: 'varchar(20)', notNull: true},
-        password: {type: 'varchar(20)', notNull: true},
-        token: {type: 'varchar(100)', notNull: true},
-        status: {type: 'smallint'}
+        phone: {type: 'varchar(50)', notNull: true},
+        password: {type: 'varchar(100)', notNull: true},
+        token: {type: 'varchar(500)', notNull: true, default: ''},
+        status: {type: 'smallint', default: 1}
     })
 
     pgm.createTable('groups', {
@@ -26,9 +26,9 @@ exports.up = (pgm) => {
 
     pgm.createTable('products', {
         id: 'id',
-        code: {type: 'varchar(20)', notNull: true, unique: true},
-        name: {type: 'varchar(100)', notNull: true},
-        otherName: {type: 'varchar(100)', notNull: true},
+        code: {type: 'varchar(100)', notNull: true, unique: true},
+        name: {type: 'varchar(500)', notNull: true},
+        otherName: {type: 'varchar(500)', notNull: true},
         groupId: {
             type: 'integer',
             notNull: true,

@@ -19,7 +19,7 @@ export class Fto<T> {
         return new Fto<T>('','', data);
     }
 
-    static from<T,D>(dto: Dto<D>): Fto<T> {
-        return new Fto<T>(dto.code, dto.message, dto.data);
+    static from<F, D>(dto: Dto<D>): Fto<F> {
+        return new Fto<F>(dto.code, dto.message, dto.data as F);
     }
 }

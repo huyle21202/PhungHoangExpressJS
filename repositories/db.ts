@@ -1,3 +1,5 @@
+import {Logger} from "../common";
+
 const { Pool } = require('pg');
 const config = require('../config');
 const pool = new Pool(config.db);
@@ -9,12 +11,30 @@ const pool = new Pool(config.db);
  *
  * @see https://node-postgres.com/features/pooling#single-query
  */
-async function query(query: string, params: any) {
-    const {rows, fields} = await pool.query(query, params);
+export class DB {
+    static async first(query: string, params: any): Promise<any | null> {
+        const entities: any[] = await DB.query(query, params);
+        const entity : any | null = entities.length > 0 ? entities[0] : null;
+        Logger.log(() => [`DB.first `, query, params, entities, entity]);
+        return entity;
+    }
+    static async query(query: string, params: any): Promise<any[]> {
+        const {rows, fields} = await pool.query(query, params);
+        if (!rows) {
+            return [];
+        }
+        return rows;
+    }
+    static async insert(query: any): Promise<any> {
+        const {rows, fields} = await pool.query(query);
+        Logger.log(() => [`DB.insert `, query, rows, fields]);
 
-    return rows;
-}
+        return rows;
+    }
+    static async update(query: any): Promise<any> {
+        const {rows, fields} = await pool.query(query);
+        Logger.log(() => [`DB.update `, query, rows, fields]);
 
-module.exports = {
-    query
+        return rows;
+    }
 }

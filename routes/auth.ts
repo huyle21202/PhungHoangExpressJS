@@ -11,7 +11,11 @@ router.post('/login', async function(req, res, next) {
     }
 });
 router.get('/', async function(req, res, next) {
-    res.json("Hello from Auth");
+    try {
+        res.json(await LoginWithPhoneNumberAndPasswordFacade.login("0905690200", "123456"));
+    } catch (err) {
+        res.status(500).json(err);
+    }
 });
 
 
