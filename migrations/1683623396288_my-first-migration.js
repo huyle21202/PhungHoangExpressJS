@@ -9,26 +9,27 @@ exports.up = (pgm) => {
         phone: {type: 'varchar(50)', notNull: true},
         password: {type: 'varchar(100)', notNull: true},
         token: {type: 'varchar(500)', notNull: true, default: ''},
-        status: {type: 'smallint', default: 1}
+        status: {type: 'smallint', notNull: true, default: 1}
     })
 
     pgm.createTable('groups', {
         id: 'id',
         name: {type: 'varchar(100)', notNull: true},
-        status: {type: 'smallint'}
+        status: {type: 'smallint', notNull: true, default: 1}
     })
 
     pgm.createTable('brands', {
         id: 'id',
         name: {type: 'varchar(100)', notNull: true},
-        status: {type: 'smallint'}
+        status: {type: 'smallint', notNull: true, default: 1}
     })
 
     pgm.createTable('products', {
         id: 'id',
         code: {type: 'varchar(100)', notNull: true, unique: true},
         name: {type: 'varchar(500)', notNull: true},
-        otherName: {type: 'varchar(500)', notNull: true},
+        otherName: {type: 'varchar(500)', allowNull: true, default: ''},
+        image: {type: 'varchar(500)', allowNull: true},
         groupId: {
             type: 'integer',
             notNull: true,
@@ -41,14 +42,14 @@ exports.up = (pgm) => {
             references: '"brands"',
             onDelete: 'cascade',
         },
-        price: {type: 'numeric(18,2)'},
-        quantity: {type: 'integer', notNull: true, default: 0},
+        price: {type: 'numeric(18,2)', notNull: true},
+        quantity: {type: 'integer', allowNull: true, default: 0},
         updatedAt: {
             type: 'timestamp',
             notNull: true,
             default: pgm.func('current_timestamp')
         },
-        status: {type: 'smallint'}
+        status: {type: 'smallint', notNull: true, default: 1}
     })
 }
 

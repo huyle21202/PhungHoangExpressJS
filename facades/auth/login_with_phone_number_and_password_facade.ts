@@ -2,7 +2,6 @@ import {Fto} from "../Fto";
 import {AuthService, Dto, SettingService, TokenService, Setting, User} from "../../services";
 import {LoginResult} from "../model";
 import {Logger} from "../../common";
-import {UserRepo} from "../../repositories";
 
 export class LoginWithPhoneNumberAndPasswordFacade {
     static async login(phone: string, password: string): Promise<Fto<LoginResult>> {
