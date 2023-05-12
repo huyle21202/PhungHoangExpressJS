@@ -10,7 +10,7 @@
     "migrate_up": "DATABASE_URL=postgres://postgres:123456@localhost:5432/postgres npm run migrate up",
     "migrate_init": "rm -rf ./prisma/migrations && npx prisma migrate dev --name init",
     "migrate_seed": "npx prisma db seed",
-    "production" : "sh ./deploy.sh"
+    "production" : "npx prisma migrate deploy && yarn start"
   },
   "prisma": {
     "seed": "ts-node prisma/seed.ts"
