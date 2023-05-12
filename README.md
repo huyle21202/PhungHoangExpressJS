@@ -10,3 +10,7 @@ and run Up Migration
 ```
 DATABASE_URL=postgres://postgres:123456@localhost:5432/postgres npm run migrate up
 ```
+## Drop all Tables
+```
+DROP TABLE products, groups, brands, users, pgmigrations;
+```

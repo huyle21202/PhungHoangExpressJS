@@ -46,6 +46,67 @@ exports.up = (pgm) => {
         quantity: {type: 'integer', notNull: true, default: 0},
         status: {type: 'smallint', notNull: true, default: 1}
     })
+
+    pgm.createTable('bills', {
+        id: {type: 'uuid', notNull: true, key: true},
+        description: {type: 'varchar(200)', notNull: true},
+        createdAt: {type: 'integer', notNull: true, default: 0},
+        updatedAt: {type: 'integer', notNull: true, default: 0},
+        total:{type: 'numeric(18,2)', notNull: true},
+        estimation: {type: 'integer', notNull: true, default: 0}
+    })
+
+    pgm.createTable('bill_assigners', {
+        id: {type: 'uuid', notNull: true, key: true},
+        userId: {
+            type: 'integer',
+            notNull: true,
+            references: '"users"',
+            onDelete: 'cascade',
+        },
+        note: {type: 'varchar(200)', notNull: true},
+        quantity: {type: 'integer', notNull: true, default: 0},
+        createdAt: {type: 'integer', notNull: true, default: 0},
+        updatedAt: {type: 'integer', notNull: true, default: 0},
+        active: {type: 'boolean', default: false}
+    })
+    
+    pgm.createTable('bill_products', {
+        id: {type: 'uuid', notNull: true, key: true},
+        billId: {
+            type: 'uuid',
+            notNull: true,
+            references: '"bills"',
+            onDelete: 'cascade',
+        },
+        note: {type: 'varchar(200)', notNull: true},
+        productId: {
+            type: 'integer',
+            notNull: true,
+            references: '"products"',
+            onDelete: 'cascade',
+        },
+        price: {type: 'numeric(18,2)', notNull: true},
+        quantity: {type: 'integer', notNull: true, default: 0},
+        createdAt: {type: 'integer', notNull: true, default: 0},
+        updatedAt: {type: 'integer', notNull: true, default: 0},
+    })
+
+
+
+    pgm.createTable('bill_services', {
+        id: {type: 'uuid', notNull: true, key: true},
+        billId: {
+            type: 'uuid',
+            notNull: true,
+            references: '"bills"',
+            onDelete: 'cascade',
+        },
+        note: {type: 'varchar(200)', notNull: true},
+        price: {type: 'numeric(18,2)', notNull: true},
+        createdAt: {type: 'integer', notNull: true, default: 0},
+        updatedAt: {type: 'integer', notNull: true, default: 0},
+    })
 }
 
 exports.down = pgm => {};
