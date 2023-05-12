@@ -1,20 +1,26 @@
-import {GroupEntity} from "./model";
-import {DB} from "./db";
-
+import {BrandEntity, GroupEntity} from "./model";
+import { PrismaClient } from '@prisma/client'
+const prisma = new PrismaClient();
 export class GroupRepo {
     static async update(id: number, name: string, status: number): Promise<GroupEntity | null> {
-        const query = {
-            text: `UPDATE groups SET name=$1, status=$2 WHERE id=$3 RETURNING *`,
-            values: [name, status, id],
-        };
-        return  DB.update(query);
+        const group: GroupEntity | null = await prisma.groups.update({
+            where: {
+                id
+            },
+            data: {
+                name,
+                status
+            },
+        })
+        return group;
     }
 
     static async create(name: string, status: number): Promise<GroupEntity | null> {
-        const query = {
-            text: `INSERT INTO groups (name, status) VALUES ($1, $2) RETURNING *`,
-            values: [name, status],
-        };
-        return DB.insert(query);
+        const group: GroupEntity | null = await prisma.groups.create({
+            data: {
+                name, status
+            }
+        });
+        return group;
     }
 }

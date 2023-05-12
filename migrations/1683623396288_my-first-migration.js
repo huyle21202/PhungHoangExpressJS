@@ -70,7 +70,7 @@ exports.up = (pgm) => {
         updatedAt: {type: 'integer', notNull: true, default: 0},
         active: {type: 'boolean', default: false}
     })
-    
+
     pgm.createTable('bill_products', {
         id: {type: 'uuid', notNull: true, key: true},
         billId: {
